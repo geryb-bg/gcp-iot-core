@@ -1,0 +1,25 @@
+{
+  "name": "combined",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "jvsbme680": "^1.0.4",
+    "onoff": "^3.2.2",
+    "jsonwebtoken": "8.2.0",
+    "mqtt": "2.16.0"
+  },
+  "devDependencies": {
+    "googleapis": "^32.0.0",
+    "@google-cloud/pubsub": "0.16.4",
+    "@google-cloud/nodejs-repo-tools": "^3.0.0",
+    "ava": "0.25.0",
+    "semistandard": "^12.0.1",
+    "uuid": "3.3.2"
+  }
+}

@@ -1,0 +1,63 @@
+'use strict';
+
+const fs = require('fs');
+const jwt = require('jsonwebtoken');
+const mqtt = require('mqtt');
+const args = require('./args.js');
+const { measureAll } = require('./weather');
+
+const MQTT_BRIDGE_HOSTNAME = "mqtt.googleapis.com";
+const MQTT_BRIDGE_PORT = 8883;
+const ALGORITHM = 'RS256';
+
+function createJwt(projectId, privateKeyFile, algorithm) {
+    const token = {
+        'iat': parseInt(Date.now() / 1000),
+        'exp': parseInt(Date.now() / 1000) + 20 * 60, // 20 minutes
+        'aud': projectId
+    };
+    const privateKey = fs.readFileSync(privateKeyFile);
+    return jwt.sign(token, privateKey, { algorithm: algorithm });
+}
+
+async function publishAsync() {
+    let data = await measureAll();
+    data.deviceId = args.deviceId;
+    client.publish(mqttTopic, JSON.stringify(data), { qos: 1 }, function (err) {
+        console.log("message published: ", JSON.stringify(data));
+    });
+}
+
+const mqttClientId = `projects/${args.projectId}/locations/${args.cloudRegion}/registries/${args.registryId}/devices/${args.deviceId}`;
+
+let connectionArgs = {
+    host: MQTT_BRIDGE_HOSTNAME,
+    port: MQTT_BRIDGE_PORT,
+    clientId: mqttClientId,
+    username: 'unused',
+    password: createJwt(args.projectId, args.privateKeyFile, ALGORITHM),
+    protocol: 'mqtts',
+    secureProtocol: 'TLSv1_2_method'
+};
+
+let client = mqtt.connect(connectionArgs);
+client.subscribe(`/devices/${args.deviceId}/config`, { qos: 1 });
+
+//The topic name must end in 'state' to publish state and 'events' to publish telemetry
+const mqttTopic = `/devices/${args.deviceId}/events`;
+client.on('connect', (success) => {
+    console.log('connect');
+    if (!success) {
+        console.log('Client not connected...');
+    } else {
+        setInterval(() => {
+            publishAsync();
+        }, 5000);
+    }
+});
+
+process.on('SIGINT', function() {
+    console.log('Closing connection to MQTT. Goodbye!');
+    client.end();
+    process.exit();
+});

@@ -1,0 +1,14 @@
+{
+  "name": "light-sensor",
+  "version": "1.0.0",
+  "description": "",
+  "main": "photocell.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "onoff": "^3.2.2"
+  }
+}
