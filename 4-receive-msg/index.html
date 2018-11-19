@@ -1,0 +1,156 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>My App</title>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        let socket = io();
+        socket.on('data-r2', (data) => {
+            document.getElementById("device-name-r2").innerText = data.deviceId;
+            document.getElementById("temp-r2").innerText = data.temperature.toFixed(2);
+            document.getElementById("pres-r2").innerText = data.pressure.toFixed(2);
+            document.getElementById("hum-r2").innerText = data.humidity.toFixed(2);
+            document.getElementById("gas-r2").innerText = data.gasResistance.toFixed(0);
+            document.getElementById("air-r2").innerText = data.airQuality.toFixed(2);
+            let amountOfLight = "Pretty bright";
+            if (data.lightReading > 100 && data.lightReading < 1000) {
+                amountOfLight = "A little dim";
+            } else if (data.lightReading >= 1000) {
+                amountOfLight = "Complete darkness";
+            }
+            document.getElementById("light-r2").innerText = amountOfLight;
+            let date = new Date(data.currentTime);
+            document.getElementById("date-r2").innerText = `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')} ${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}:${date.getSeconds().toString().padStart(2, '0')}`;
+        });
+        socket.on('data-bb', (data) => {
+            document.getElementById("device-name-bb").innerText = data.deviceId;
+            document.getElementById("temp-bb").innerText = data.temperature.toFixed(2);
+            document.getElementById("pres-bb").innerText = data.pressure.toFixed(2);
+            document.getElementById("hum-bb").innerText = data.humidity.toFixed(2);
+            document.getElementById("gas-bb").innerText = data.gasResistance.toFixed(0);
+            document.getElementById("air-bb").innerText = data.airQuality.toFixed(2);
+            let amountOfLight = "Pretty bright";
+            if (data.lightReading > 100 && data.lightReading < 1000) {
+                amountOfLight = "A little dim";
+            } else if (data.lightReading >= 1000) {
+                amountOfLight = "Complete darkness";
+            }
+            document.getElementById("light-bb").innerText = amountOfLight;
+            let date = new Date(data.currentTime);
+            document.getElementById("date-bb").innerText = `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')} ${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}:${date.getSeconds().toString().padStart(2, '0')}`;
+        });
+    </script>
+    <style>
+        body {
+            font-family: Segoe UI, Frutiger, Frutiger Linotype, Dejavu Sans, Helvetica Neue, Arial, sans-serif;
+        }
+
+        .device {
+            width: 20%;
+            border: 1px solid black;
+            padding: 0px 20px;
+            box-shadow: 3px 3px 5px lightgray;
+            display: inline-block;
+            margin: 0 50px;
+        }
+
+        .device table {
+            width: 100%;
+            font-size: 1.2em;
+        }
+
+        td {
+            padding: 5px 0;
+        }
+
+        td:first-child {
+            font-weight: bold;
+        }
+
+        td:last-child,
+        .updated {
+            text-align: right;
+        }
+
+        #device-name {
+            text-align: center;
+        }
+
+        #date {
+            display: inline-block;
+            width: 40%;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Devices</h1>
+    <div class="device">
+        <h2 id="device-name-r2">Name</h2>
+        <table>
+            <tr>
+                <td>Temperature</td>
+                <td><span id="temp-r2">0</span></td>
+            </tr>
+            <tr>
+                <td>Pressure</td>
+                <td><span id="pres-r2">0</span></td>
+            </tr>
+            <tr>
+                <td>Humidity</td>
+                <td><span id="hum-r2">0</span></td>
+            </tr>
+            <tr>
+                <td>Gas Resistance</td>
+                <td><span id="gas-r2">0</span></td>
+            </tr>
+            <tr>
+                <td>Air Quality</td>
+                <td><span id="air-r2">0</span></td>
+            </tr>
+            <tr>
+                <td>Light Reading</td>
+                <td><span id="light-r2"></span></td>
+            </tr>
+        </table>
+        <p class="updated">
+            <strong>Last Update:</strong> <span id="date-r2">unknown</span>
+        </p>
+    </div>
+    <div class="device">
+        <h2 id="device-name-bb">Name</h2>
+        <table>
+            <tr>
+                <td>Temperature</td>
+                <td><span id="temp-bb">0</span></td>
+            </tr>
+            <tr>
+                <td>Pressure</td>
+                <td><span id="pres-bb">0</span></td>
+            </tr>
+            <tr>
+                <td>Humidity</td>
+                <td><span id="hum-bb">0</span></td>
+            </tr>
+            <tr>
+                <td>Gas Resistance</td>
+                <td><span id="gas-bb">0</span></td>
+            </tr>
+            <tr>
+                <td>Air Quality</td>
+                <td><span id="air-bb">0</span></td>
+            </tr>
+            <tr>
+                <td>Light Reading</td>
+                <td><span id="light-bb"></span></td>
+            </tr>
+        </table>
+        <p class="updated">
+            <strong>Last Update:</strong> <span id="date-bb">unknown</span>
+        </p>
+    </div>
+</body>
+
+</html>

@@ -8,11 +8,13 @@ app.get('/', function (req, res) {
 });
 
 io.on('connection', function (socket) {
-    socket.on('chat message', function (msg) {
-        io.emit('chat message', msg);
-    });
     socket.on('data', (data) => {
-        io.emit('data', JSON.parse(data.toString()));
+        let cloudData = JSON.parse(data.toString());
+        if (cloudData.deviceId === "r2-d2-pi") {
+            io.emit('data-r2', cloudData);
+        } else {
+            io.emit('data-bb', cloudData);
+        }
     });
 });
 
