@@ -1,0 +1,136 @@
+{
+    "photocell import": {
+        "prefix": "photo1",
+        "body": "const gpio = require('onoff').Gpio;",
+        "description": "import onoff library for photocell"
+    },
+    "photocell GPIO on": {
+        "prefix": "photo2",
+        "body": [
+            "let onPin = new gpio(5, 'out');",
+            "onPin.write(1, (err) => {",
+            "\tif (err) {",
+            "\t\tconsole.log(err);",
+            "\t} else {",
+            "\t}",
+            "});"
+        ],
+        "description": "Turn on the GPIO pin that will power the photocell"
+    },
+    "photocell get reading": {
+        "prefix": "photo3",
+        "body": [
+            "function getLightReading(pin) {",
+            "\tlet reading = 0;",
+            "\tlet sensor = new gpio(pin, 'out');",
+            "\tsensor.write(0, (err) => { if (err) console.log(err); });",
+            "\t",
+            "\tsensor = new gpio(pin, 'in', 'both');",
+            "\twhile (sensor.readSync() == false) {",
+            "\t\treading++;",
+            "\t}",
+            "\treturn reading;",
+            "}"
+        ],
+        "description": "Get the reading from the amount of light"
+    },
+    "photocell call function with interval": {
+        "prefix": "photo4",
+        "body": [
+            "setInterval(() => {",
+            "\tconsole.log(getLightReading(21));",
+            "}, 1000);"
+        ],
+        "description": "Call the light reading function every 1 second"
+    },
+    "temperature imports and init": {
+		"prefix": "temp1",
+		"body": [
+			"'use strict';",
+			"const { BME680 } = require('jvsbme680');",
+			"const bme680 = new BME680();"
+		],
+		"description": "Initialise library and sensor"
+	},
+	"temperature measure": {
+		"prefix": "temp2",
+		"body": [
+			"async function measureAll() {",
+			"\ttry {",
+			"\t\tconst { gasResistance, humidity, pressure, temperature } = await bme680.read();",
+			"\t\tconsole.log(`Gas resistance (Ohms): \\${gasResistance}`);",
+			"\t\tconsole.log(`Humidity (%RH): \\${humidity}`);",
+			"\t\tconsole.log(`Pressure (hPa): \\${pressure}`);",
+			"\t\tconsole.log(`Temperature (degrees C): \\${temperature}`);",
+			"\t\t",
+			"\t} catch (err) {",
+			"\t\tconsole.error(`Failed to read data: \\${err}`);",
+			"\t}",
+			"}"
+		],
+		"description": "Get the readings and print them to the console"
+	},
+	"temperature gas reference": {
+		"prefix": "temp3",
+		"body": [
+			"const gas_lower_limit = 5000;   // Bad air quality limit",
+			"const gas_upper_limit = 50000;  // Good air quality limit",
+			"const hum_reference = 40;",
+			"let gas_reference = 250000;",
+			"",
+			"async function getGasReference() {",
+			"\tfor (let i = 0; i <= 10; i++) {",
+			"\t\tlet readings = await bme680.read();",
+			"\t\tgas_reference += readings.gasResistance;",
+			"\t}",
+			"\tgas_reference = gas_reference / 10;",
+			"\tconsole.log('New gas reference: ', gas_reference);",
+			"}"
+		],
+		"description": "Calculate the gas reference"
+	},
+	"temperature air quality": {
+		"prefix": "temp4",
+		"body": [
+			"function calculateAirQuality(gasResistance, humidity) {",
+			"\tlet hum_score;",
+			"\tif (humidity >= 38 && humidity <= 42)",
+			"\t\thum_score = 0.25 * 100;",
+			"\telse {",
+			"\t\tif (humidity < 38)",
+			"\t\t\thum_score = 0.25 / hum_reference * humidity * 100;",
+			"\t\telse {",
+			"\t\t\thum_score = ((-0.25 / (100 - hum_reference) * humidity) + 0.416666) * 100;",
+			"\t\t}",
+			"\t}",
+			"\t",
+			"\tif (gas_reference > gas_upper_limit)",
+			"\t\tgas_reference = gas_upper_limit;",
+			"\tif (gas_reference < gas_lower_limit)",
+			"\t\tgas_reference = gas_lower_limit;",
+			"\tlet gas_score = (0.75 / (gas_upper_limit - gas_lower_limit) * gas_reference - (gas_lower_limit * (0.75 / (gas_upper_limit - gas_lower_limit)))) * 100;",
+			"\t",
+			"\treturn hum_score + gas_score;",
+			"}"
+		],
+		"description": "Calculate air quality"
+	},
+	"temperature call air quality calc": {
+		"prefix": "temp5",
+		"body": [
+			"console.log(`Air Quality: \\${calculateAirQuality(gasResistance, humidity)}`);",
+			"await getGasReference();"
+		],
+		"description": "Calling calculate air quality and get gas reference"
+	},
+	"temperature call function every 5 secs": {
+		"prefix": "temp6",
+		"body": [
+			"getGasReference();",
+			"setInterval(() => {",
+			"\tmeasureAll();",
+			"}, 5000);"
+		],
+		"description": "Initial call of gas ref and interval for all data"
+	}
+}
