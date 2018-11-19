@@ -4,7 +4,8 @@ const fs = require('fs');
 const jwt = require('jsonwebtoken');
 const mqtt = require('mqtt');
 const args = require('./args.js');
-const { measureAll } = require('./weather');
+const { measureAll } = require('./weather.js');
+const { initPower, getLightReading } = require('./photocell.js');
 
 const MQTT_BRIDGE_HOSTNAME = "mqtt.googleapis.com";
 const MQTT_BRIDGE_PORT = 8883;
@@ -22,7 +23,9 @@ function createJwt(projectId, privateKeyFile, algorithm) {
 
 async function publishAsync() {
     let data = await measureAll();
+    data.lightReading = getLightReading(21);
     data.deviceId = args.deviceId;
+    console.log(JSON.stringify(data));
     client.publish(mqttTopic, JSON.stringify(data), { qos: 1 }, function (err) {
         console.log("message published: ", JSON.stringify(data));
     });
@@ -50,6 +53,7 @@ client.on('connect', (success) => {
     if (!success) {
         console.log('Client not connected...');
     } else {
+        initPower();
         setInterval(() => {
             publishAsync();
         }, 5000);

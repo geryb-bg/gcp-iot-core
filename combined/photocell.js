@@ -1,5 +1,13 @@
 const gpio = require('onoff').Gpio;
 
+function initPower() {
+    let onPin = new gpio(5, 'out');
+    onPin.write(1, (err) => {
+        if (err)
+            console.log(err);
+    });
+}
+
 function getLightReading(pin) {
     let reading = 0;
     let sensor = new gpio(pin, 'out');
@@ -12,13 +20,4 @@ function getLightReading(pin) {
     return reading;
 }
 
-let onPin = new gpio(5, 'out');
-onPin.write(1, (err) => {
-    if (err) {
-        console.log(err);
-    } else {
-        setInterval(() => {
-            console.log(getLightReading(21));
-        }, 1000);
-    }
-});
+module.exports = { initPower, getLightReading }

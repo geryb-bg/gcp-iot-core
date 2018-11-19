@@ -28,6 +28,7 @@ async function measureAll() {
         console.log(`Temperature (degrees C): ${temperature}`);
 
         console.log(`Air Quality: ${calculateAirQuality(gasResistance, humidity)}`);
+        await getGasReference();
     } catch (err) {
         console.error(`Failed to read data: ${err}`);
     }
