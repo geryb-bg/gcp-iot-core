@@ -4,11 +4,7 @@
   "description": "",
   "main": "blink.js",
   "dependencies": {
-    "johnny-five": "^1.0.0",
     "onoff": "^3.2.2",
-    "raspi-io": "^9.0.0",
-    "rpio": "^0.9.23",
-    "sleep": "^5.2.3"
   },
   "devDependencies": {},
   "scripts": {
