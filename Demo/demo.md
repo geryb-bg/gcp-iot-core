@@ -72,5 +72,3 @@
 1. `cd combined`
 1. `ls` - show package.json
 1. `sudo node weather.js`
-
-# 4. Receive messages
