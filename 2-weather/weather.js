@@ -16,7 +16,7 @@ async function getGasReference() {
     console.log('New gas reference: ', gas_reference);
 }
 
-function calculateAirQuality(gasResistance, humidity) {
+function calculateAirQuality(humidity) {
     let hum_score;
     if (humidity >= 38 && humidity <= 42)
         hum_score = 0.25 * 100;
@@ -45,7 +45,7 @@ async function measureAll() {
         console.log(`Pressure (hPa): ${pressure}`);
         console.log(`Temperature (degrees C): ${temperature}`);
 
-        console.log(`Air Quality: ${calculateAirQuality(gasResistance, humidity)}`);
+        console.log(`Air Quality: ${calculateAirQuality(humidity)}`);
         await getGasReference();
     } catch (err) {
         console.error(`Failed to read data: ${err}`);

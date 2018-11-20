@@ -7,7 +7,7 @@
 
 ## Copy to pi
 ### Local
-1. `scp photocell.js pi@bbd-r2-d2.local:~/gcp-iot-core/light-sensor`
+1. `scp photocell.js pi@bbd-bb-8.local:~/gcp-iot-core/light-sensor`
 1. `ssh pi@bbd-bb-8.local`
 
 ### Pi
@@ -26,7 +26,7 @@
 
 ## Copy to pi
 ### Local
-1. `scp weather.js pi@bbd-r2-d2.local:~/gcp-iot-core/weather`
+1. `scp weather.js pi@bbd-bb-8.local:~/gcp-iot-core/weather`
 
 ### Pi
 1. `cd ..`
@@ -59,5 +59,18 @@
 1. `combined7` - Publish message to events route
 1. `combined8` - Initializing power to photocell and setting up interval
 1. `combined9` - Closing connection to mqtt
+
+## Copy to Pi
+### Local
+1. `scp args.js pi@bbd-bb-8.local:~/gcp-iot-core/combined`
+1. `scp photocell.js pi@bbd-bb-8.local:~/gcp-iot-core/combined`
+1. `scp weather.js pi@bbd-bb-8.local:~/gcp-iot-core/combined`
+1. `scp index.js pi@bbd-bb-8.local:~/gcp-iot-core/combined`
+
+### Pi
+1. `cd ..`
+1. `cd combined`
+1. `ls` - show package.json
+1. `sudo node weather.js`
 
 # 4. Receive messages

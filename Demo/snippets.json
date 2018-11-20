@@ -92,7 +92,7 @@
 	"temperature air quality": {
 		"prefix": "temp4",
 		"body": [
-			"function calculateAirQuality(gasResistance, humidity) {",
+			"function calculateAirQuality(humidity) {",
 			"\tlet hum_score;",
 			"\tif (humidity >= 38 && humidity <= 42)",
 			"\t\thum_score = 0.25 * 100;",
@@ -118,7 +118,7 @@
 	"temperature call air quality calc": {
 		"prefix": "temp5",
 		"body": [
-			"console.log(`Air Quality: \\${calculateAirQuality(gasResistance, humidity)}`);",
+			"console.log(`Air Quality: \\${calculateAirQuality(humidity)}`);",
 			"await getGasReference();"
 		],
 		"description": "Calling calculate air quality and get gas reference"

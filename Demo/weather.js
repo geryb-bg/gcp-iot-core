@@ -16,7 +16,7 @@ async function getGasReference() {
     console.log('New gas reference: ', gas_reference);
 }
 
-function calculateAirQuality(gasResistance, humidity) {
+function calculateAirQuality(humidity) {
     let hum_score;
     if (humidity >= 38 && humidity <= 42)
         hum_score = 0.25 * 100;
