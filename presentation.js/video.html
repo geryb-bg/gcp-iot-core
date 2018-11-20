@@ -1,0 +1,32 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>The I in IoT - Camera</title>
+</head>
+
+<body style="text-align: center;">
+    <video id="video" class="box"></video>
+    <script>
+        let video = document.getElementById("video");
+        let resolution = {
+            width: { exact: 1080 },
+            height: { exact: 720 }
+        };
+        navigator.mediaDevices
+            .getUserMedia({ video: resolution, audio: false })
+            .then(function (s) {
+                stream = s;
+                video.srcObject = s;
+                video.play();
+            })
+            .catch(function (err) {
+                console.log("An error occured! " + err);
+            });
+    </script>
+</body>
+
+</html>
