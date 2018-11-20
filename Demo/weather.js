@@ -39,20 +39,14 @@ function calculateAirQuality(gasResistance, humidity) {
 
 async function measureAll() {
     try {
-        const { gasResistance, humidity, pressure, temperature } = await bme680.read();
-        console.log(`Gas resistance (Ohms): ${gasResistance}`);
-        console.log(`Humidity (%RH): ${humidity}`);
-        console.log(`Pressure (hPa): ${pressure}`);
-        console.log(`Temperature (degrees C): ${temperature}`);
-
-        console.log(`Air Quality: ${calculateAirQuality(gasResistance, humidity)}`);
+        let readings = await bme680.read();
         await getGasReference();
+        readings.airQuality = calculateAirQuality(readings.humidity);
+        readings.currentTime = new Date();
+        return readings;
     } catch (err) {
         console.error(`Failed to read data: ${err}`);
     }
 }
 
-getGasReference();
-setInterval(() => {
-    measureAll();
-}, 5000);
+module.exports = { measureAll }
