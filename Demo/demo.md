@@ -71,4 +71,4 @@
 1. `cd ..`
 1. `cd combined`
 1. `ls` - show package.json
-1. `sudo node weather.js`
+1. `sudo node index.js`
