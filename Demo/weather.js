@@ -27,13 +27,13 @@ function calculateAirQuality(humidity) {
             hum_score = ((-0.25 / (100 - hum_reference) * humidity) + 0.416666) * 100;
         }
     }
-
+    
     if (gas_reference > gas_upper_limit)
         gas_reference = gas_upper_limit;
     if (gas_reference < gas_lower_limit)
         gas_reference = gas_lower_limit;
     let gas_score = (0.75 / (gas_upper_limit - gas_lower_limit) * gas_reference - (gas_lower_limit * (0.75 / (gas_upper_limit - gas_lower_limit)))) * 100;
-
+    
     return hum_score + gas_score;
 }
 

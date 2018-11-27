@@ -21,6 +21,21 @@ function createJwt(projectId, privateKeyFile, algorithm) {
     return jwt.sign(token, privateKey, { algorithm: algorithm });
 }
 
+const mqttClientId = `projects/${args.projectId}/locations/${args.cloudRegion}/registries/${args.registryId}/devices/${args.deviceId}`;
+
+let connectionArgs = {
+    host: MQTT_BRIDGE_HOSTNAME,
+    port: MQTT_BRIDGE_PORT,
+    clientId: mqttClientId,
+    username: 'unused',
+    password: createJwt(args.projectId, args.privateKeyFile, ALGORITHM),
+    protocol: 'mqtts',
+    secureProtocol: 'TLSv1_2_method'
+};
+
+let client = mqtt.connect(connectionArgs);
+client.subscribe(`/devices/${args.deviceId}/config`, { qos: 1 });
+
 const mqttTopic = `/devices/${args.deviceId}/events`;
 async function publishAsync() {
     let data = await measureAll();
@@ -34,21 +49,6 @@ async function publishAsync() {
             console.log('message published: ', JSON.stringify(data));
     });
 }
-
-const mqttClientId = `projects/${args.projectId}/locations/${args.cloudRegion}/registries/${args.registryId}/devices/${args.deviceId}`;
-
-let connectionArgs = {
-host: MQTT_BRIDGE_HOSTNAME,
-    port: MQTT_BRIDGE_PORT,
-    clientId: mqttClientId,
-    username: 'unused',
-    password: createJwt(args.projectId, args.privateKeyFile, ALGORITHM),
-    protocol: 'mqtts',
-    secureProtocol: 'TLSv1_2_method'
-};
-
-let client = mqtt.connect(connectionArgs);
-client.subscribe(`/devices/${args.deviceId}/config`, { qos: 1 });
 
 client.on('connect', (success) => {
     console.log('connect');
