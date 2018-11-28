@@ -4,7 +4,7 @@
 3. Start up receive message script and open in browser
 4. Start presentation script
 
-5. VNC into wine-bot and start up script
+5. ssh into wine-bot and start up script
 6. Push button to test and delete all things in cart
 
 7. Open VS Code and zoom in to correct level
