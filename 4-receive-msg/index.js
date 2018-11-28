@@ -33,10 +33,3 @@ process.on('SIGINT', function() {
     closeSubscription();
     process.exit();
 });
-
-
-// {
-//     "projects": {
-//       "default": "iot-cloud-stuff"
-//     }
-//   }
