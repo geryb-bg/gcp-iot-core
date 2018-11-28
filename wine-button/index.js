@@ -1,6 +1,8 @@
-const opn = require('opn');
 const raspi = require('raspi-io');
 const five = require('johnny-five');
+const io = require('socket.io-client');
+
+const socket = io('http://192.168.46.143:3000/');
 const board = new five.Board({
     io: new raspi()
 });
@@ -14,6 +16,6 @@ board.on('ready', () => {
 
     button.on('down', function() {
         console.log("opening...");
-        opn('https://beyerskloof.co.za/online-shop/?orderby=price&add-to-cart=139');
+        socket.emit('wine', 'wine please');
     });
 });

@@ -1,3 +1,4 @@
+const opn = require('opn');
 const app = require('express')();
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
@@ -16,6 +17,10 @@ io.on('connection', function (socket) {
             io.emit('data-bb', cloudData);
         }
     });
+    socket.on('wine', (data) => {
+        console.log(`wine-bot says: ${data}`);
+        opn('https://beyerskloof.co.za/online-shop/?orderby=price&add-to-cart=139');
+    });
 });
 
 http.listen(3000, function () {
@@ -28,3 +33,10 @@ process.on('SIGINT', function() {
     closeSubscription();
     process.exit();
 });
+
+
+// {
+//     "projects": {
+//       "default": "iot-cloud-stuff"
+//     }
+//   }
