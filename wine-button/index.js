@@ -1,7 +1,8 @@
 const Gpio = require('onoff').Gpio;
 const io = require('socket.io-client');
 
-const socket = io('http://192.168.46.143:3000/');
+//const socket = io('http://192.168.46.143:3000/');
+const socket = io('http://192.168.43.245:3000/');
 const button = new Gpio(4, 'in', 'rising', { debounceTimeout: 30 });
 let counter = 0;
 let myTimeout;

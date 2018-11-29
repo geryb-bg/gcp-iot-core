@@ -4,12 +4,13 @@
 3. Start up receive message script and open in browser
 4. Start presentation script
 
-5. ssh into wine-bot and start up script
-6. Push button to test and delete all things in cart
+5. copy correct IP script to wine-bot
+6. ssh into wine-bot and start up script
+7. Push button to test and delete all things in cart
 
-7. Open VS Code and zoom in to correct level
-8. Check all files are empty
+8. Open VS Code and zoom in to correct level
+9. Check all files are empty
 
-9. Open terminal and zoom in to correct level
-10. Cmd+Shift+D and zoom in to correct level
-11. cd to demo folder
+10. Open terminal and zoom in to correct level
+11. Cmd+Shift+D and zoom in to correct level
+12. cd to demo folder
