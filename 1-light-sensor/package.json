@@ -4,7 +4,7 @@
   "description": "",
   "main": "blink.js",
   "dependencies": {
-    "onoff": "^3.2.2",
+    "onoff": "^3.2.2"
   },
   "devDependencies": {},
   "scripts": {
