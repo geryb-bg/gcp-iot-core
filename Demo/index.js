@@ -24,7 +24,7 @@ function createJwt(projectId, privateKeyFile, algorithm) {
 const mqttClientId = `projects/${args.projectId}/locations/${args.cloudRegion}/registries/${args.registryId}/devices/${args.deviceId}`;
 
 let connectionArgs = {
-    host: MQTT_BRIDGE_HOSTNAME,
+host: MQTT_BRIDGE_HOSTNAME,
     port: MQTT_BRIDGE_PORT,
     clientId: mqttClientId,
     username: 'unused',

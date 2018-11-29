@@ -21,4 +21,4 @@ function initPower() {
     });
 }
 
-module.exports = { initPower, getLightReading }
+module.exports = { initPower, getLightReading };

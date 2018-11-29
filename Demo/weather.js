@@ -49,4 +49,4 @@ async function measureAll() {
     }
 }
 
-module.exports = { measureAll }
+module.exports = { measureAll };
