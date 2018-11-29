@@ -155,7 +155,7 @@
 		"description": "Add module exports to weather.js"
 	},
 	"send message imports": {
-		"prefix": "combined1",
+		"prefix": "comb1",
 		"body": [
 			"'use strict';",
 			"",
@@ -169,7 +169,7 @@
 		"description": "Import all required libraries"
 	},
 	"send message constants": {
-		"prefix": "combined2",
+		"prefix": "comb2",
 		"body": [
 			"const MQTT_BRIDGE_HOSTNAME = 'mqtt.googleapis.com';",
 			"const MQTT_BRIDGE_PORT = 8883;",
@@ -178,7 +178,7 @@
 		"description": "Constants required for connecting to GCP IoT"
 	},
 	"Create JWT": {
-		"prefix": "combined3",
+		"prefix": "comb3",
 		"body": [
 			"function createJwt(projectId, privateKeyFile, algorithm) {",
 			"\tconst token = {",
@@ -193,7 +193,7 @@
 		"description": "Create a JWT"
 	},
 	"Setup connection args": {
-		"prefix": "combined4",
+		"prefix": "comb4",
 		"body": [
 			"const mqttClientId = `projects/\\${args.projectId}/locations/\\${args.cloudRegion}/registries/\\${args.registryId}/devices/\\${args.deviceId}`;",
 			"",
@@ -210,7 +210,7 @@
 		"description": "Create connection arguments"
 	},
 	"connect and subscribe": {
-		"prefix": "combined5",
+		"prefix": "comb5",
 		"body": [
 			"let client = mqtt.connect(connectionArgs);",
 			"client.subscribe(`/devices/\\${args.deviceId}/config`, { qos: 1 });"
@@ -218,7 +218,7 @@
 		"description": "Connect to mqtt and subscribe to device"
 	},
 	"connect to client": {
-		"prefix": "combined6",
+		"prefix": "comb6",
 		"body": [
 			"client.on('connect', (success) => {",
 			"\tconsole.log('connect');",
@@ -232,7 +232,7 @@
 		"description": "Connect to client"
 	},
 	"send messages": {
-		"prefix": "combined7",
+		"prefix": "comb7",
 		"body": [
 			"const mqttTopic = `/devices/\\${args.deviceId}/events`;",
 			"async function publishAsync() {",
@@ -251,7 +251,7 @@
 		"description": "Publish message to events route"
 	},
 	"setup and interval": {
-		"prefix": "combined8",
+		"prefix": "comb8",
 		"body": [
 			"initPower();",
 			"setInterval(() => {",
@@ -261,7 +261,7 @@
 		"description": "Initializing power to photocell and setting up interval"
 	},
 	"close and exit": {
-		"prefix": "combined9",
+		"prefix": "comb9",
 		"body": [
 			"process.on('SIGINT', () => {",
 			"\tconsole.log('Closing connection to MQTT. Goodbye!');",

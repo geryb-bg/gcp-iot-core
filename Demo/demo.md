@@ -50,15 +50,15 @@
 1. `setup3` - Add module exports to weather.js
 
 ### Index
-1. `combined1` - Import all required libraries
-1. `combined2` - Constants required for connecting to GCP IoT
-1. `combined3` - Create a JWT
-1. `combined4` - Create connection arguments
-1. `combined5` - Connect to mqtt and subscribe to device
-1. `combined6` - Connect to client
-1. `combined7` - Publish message to events route
-1. `combined8` - Initializing power to photocell and setting up interval
-1. `combined9` - Closing connection to mqtt
+1. `comb1` - Import all required libraries
+1. `comb2` - Constants required for connecting to GCP IoT
+1. `comb3` - Create a JWT
+1. `comb4` - Create connection arguments
+1. `comb5` - Connect to mqtt and subscribe to device
+1. `comb6` - Connect to client
+1. `comb7` - Publish message to events route
+1. `comb8` - Initializing power to photocell and setting up interval
+1. `comb9` - Closing connection to mqtt
 
 ## Copy to Pi
 ### Local
